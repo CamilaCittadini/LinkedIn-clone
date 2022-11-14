@@ -4,11 +4,17 @@
 
 @layer base {
   body {
-    @apply bg-[white];
+    @apply bg-gray-100;
   }
 }
 @layer components {
   .homeLogo {
     @apply object-contain;
+  }
+  .intent {
+    @apply flex items-center justify-between hover:shadow-xl p-4 cursor-pointer rounded-lg text-black bg-white max-w-md xl:mx-0;
+  }
+  .backgroundImage {
+    @apply flex object-cover rounded-full;
   }
 }
