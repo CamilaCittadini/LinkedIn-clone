@@ -10,9 +10,11 @@ module.exports = {
       "content.linkedin.com",
       "static-exp1.licdn.com",
       "img.freepik.com",
-      "rb.gy",
       "st3.depositphotos.com",
       "media.istockphoto.com",
+      "content.linkedin.com",
+      "www.iconsdb.com",
+      "images.fastcompany.net",
     ],
   },
 };
