@@ -1,9 +1,10 @@
 import React from "react";
 import { SvgIconComponent } from "@mui/icons-material";
 import classNames from "classnames";
-
+import { useSession } from "next-auth/react";
+import { Avatar } from "@mui/material";
 interface HeaderLinkProps {
-  Icon: SvgIconComponent;
+  Icon?: SvgIconComponent;
   text: string;
   avatar?: boolean;
   feed?: boolean;
@@ -19,6 +20,8 @@ const HeaderLink = ({
   active,
   hidden,
 }: HeaderLinkProps) => {
+  const { data: session } = useSession();
+
   return (
     <div
       className={classNames(
@@ -32,7 +35,16 @@ const HeaderLink = ({
         }
       )}
     >
-      {avatar ? <Icon className="!h-7 !w-7 lg:!-mb-1" /> : <Icon />}
+      {!Icon ? (
+        <Avatar
+          className="!h-7 !w-7 lg:!-mb-1"
+          src={session?.user?.image as string | undefined}
+          imgProps={{ referrerPolicy: "no-referrer" }}
+        />
+      ) : (
+        <Icon />
+      )}
+
       <h4
         className={classNames("text-sm", {
           "hidden lg:flex justify-center w-full mx-auto": feed,

@@ -10,6 +10,8 @@ import { useState } from "react";
 const Sidebar = () => {
   const [showRecent, setShowRecent] = useState<boolean>(true);
   const [showHashtag, setShowHashtag] = useState<boolean>(true);
+  const { data: session } = useSession();
+
   return (
     <div className="space-y-2 min-w-max max-w-lg">
       <div className="bg-white dark:bg-[#1D2226] rounded-lg overflow-hidden relative flex flex-col items-center text-center border border-[#ebebeb] dark:border-none">
@@ -24,15 +26,16 @@ const Sidebar = () => {
 
         <Avatar
           onClick={() => signOut()}
-          src=""
+          src={session?.user?.image as string | undefined}
           className="!h-14 !w-14 !border-2 !absolute !top-4 !cursor-pointer"
+          imgProps={{ referrerPolicy: "no-referrer" }}
         />
         <div className="mt-5 py-4 space-x-0.5">
           <h4 className="hover:underline decoration-[#c79ef7] underline-offset-1 cursor-pointer">
-            User Name
+            {session?.user?.name}
           </h4>
           <p className="text-black/60 dark:text-white/75">
-            User_email@gmail.com
+            {session?.user?.email}
           </p>
         </div>
         <div className="hidden md:inline text-left sidebarButtonContainer dark:text-white/75 text-sm">

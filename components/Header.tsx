@@ -4,7 +4,6 @@ import {
   ChatBubble,
   Home,
   Notifications,
-  Person,
   SearchRounded,
 } from "@mui/icons-material";
 import GroupIcon from "@mui/icons-material/Group";
@@ -71,7 +70,7 @@ const Header = () => {
         <HeaderLink Icon={BusinessCenterSharp} text="Jobs" feed hidden />
         <HeaderLink Icon={ChatBubble} text="Messaging" feed />
         <HeaderLink Icon={Notifications} text="Notifications" feed />
-        <HeaderLink Icon={Person} text="Me" feed avatar hidden />
+        <HeaderLink text="Me" feed avatar hidden />
         <div className="border-l pl-2 dark:border-[#383d40]">
           <HeaderLink Icon={AppsOutageOutlined} text="Products" feed hidden />
         </div>
