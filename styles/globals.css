@@ -29,4 +29,11 @@
   .sidebarLinks {
     @apply text-[13px] font-medium text-blue-500 hover:underline cursor-pointer px-2.5;
   }
+  .inputButton {
+    @apply flex items-center space-x-2 h-12 px-2 rounded-lg cursor-pointer text-sm font-medium hover:bg-[#ebebeb] dark:hover:bg-[#464a4d];
+  }
+
+  .modalButton {
+    @apply cursor-pointer hover:bg-[#ebebeb] dark:hover:bg-[#464a4d] hover:border-[#C8C8C8] dark:hover:border-white/75 text-[#707070] dark:text-[#e8e8e9];
+  }
 }
