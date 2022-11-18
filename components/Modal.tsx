@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import CloseIcon from "@mui/icons-material/Close";
 import { useSession } from "next-auth/react";
 import { Avatar } from "@mui/material";
@@ -9,9 +8,6 @@ import MuiModal from "@mui/material/Modal";
 import PublicIcon from "@mui/icons-material/Public";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Form from "./Form";
-import { EmojiSelector } from "./EmojiSelector";
-import { useRef, useState } from "react";
-import { EmojiClickData } from "emoji-picker-react";
 
 interface ModalType {
   modalOpen: boolean;
@@ -22,21 +18,6 @@ interface ModalType {
 const Modal = ({ modalOpen, modalType, handleClose }: ModalType) => {
   const { data: session } = useSession();
   //const post = useRecoilValue(getPostState);
-  const [openEmojiSelector, setOpenEmojiSelector] = useState<boolean>(false);
-
-  const [textValue, setTextValue] = useState<string>("");
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
-  const onEmojiClick = (emojiObject: EmojiClickData, event: MouseEvent) => {
-    const selectionStart = textAreaRef.current?.selectionStart;
-    const selectionEnd = textAreaRef.current?.selectionEnd;
-    const newValue =
-      textValue.slice(0, selectionStart) +
-      emojiObject.emoji +
-      textValue.slice(selectionEnd);
-    setTextValue(newValue);
-    console.log(newValue);
-  };
 
   return (
     <MuiModal open={modalOpen} onClose={handleClose}>
@@ -70,18 +51,7 @@ const Modal = ({ modalOpen, modalType, handleClose }: ModalType) => {
                   </div>
                 </div>
               </div>
-              <Form
-                openEmojiSelector={openEmojiSelector}
-                setOpenEmojiSelector={setOpenEmojiSelector}
-                textAreaRef={textAreaRef}
-                textValue={textValue}
-                setTextValue={setTextValue}
-              />
-            </div>
-            <div className="relative">
-              {openEmojiSelector && (
-                <EmojiSelector onEmojiClick={onEmojiClick} />
-              )}
+              <Form />
             </div>
           </div>
         )}
