@@ -1,10 +1,4 @@
-import React, {
-  Dispatch,
-  LegacyRef,
-  SetStateAction,
-  useRef,
-  useState,
-} from "react";
+import React, { useRef, useState } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
 import classNames from "classnames";
@@ -17,7 +11,7 @@ interface Inputs {
   urlText: string;
 }
 
-const Form = ({}: FormType) => {
+const Form = () => {
   const {
     control,
     handleSubmit,
