@@ -5,8 +5,15 @@ import { Sidebar } from "../components/Sidebar";
 import type { GetServerSideProps } from "next";
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { Feed } from "../components/Feed";
+import { Modal } from "../components/Modal";
+import { modalState, modalTypeState } from "../atoms/modalAtom";
+import { useRecoilState } from "recoil";
 
 export default function Home() {
+  const [modalOpen, setModalOpen] = useRecoilState(modalState);
+  const [modalType, setModalType] = useRecoilState(modalTypeState);
+
   const router = useRouter();
 
   {
@@ -33,7 +40,15 @@ export default function Home() {
       <main className="flex justify-center gap-x-5 sm:px-12">
         <div className="flex flex-col md:flex-row gap-5">
           <Sidebar />
+          <Feed />
         </div>
+        {modalOpen && (
+          <Modal
+            handleClose={() => setModalOpen(false)}
+            modalType={modalType}
+            modalOpen={modalOpen}
+          />
+        )}
       </main>
     </div>
   );
