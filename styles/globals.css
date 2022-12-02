@@ -36,4 +36,8 @@
   .modalButton {
     @apply cursor-pointer hover:bg-[#ebebeb] dark:hover:bg-[#464a4d] hover:border-[#C8C8C8] dark:hover:border-white/75 text-[#707070] dark:text-[#e8e8e9];
   }
+
+  .postButton {
+    @apply flex items-center justify-center space-x-2 cursor-pointer hover:bg-black/10 dark:hover:bg-black/20 w-full py-2.5 rounded transition ease-out font-medium;
+  }
 }

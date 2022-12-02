@@ -8,6 +8,9 @@ import MuiModal from "@mui/material/Modal";
 import PublicIcon from "@mui/icons-material/Public";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Form from "./Form";
+import Post from "./Post";
+import { getPostState } from "../atoms/postAtom";
+import { useRecoilValue } from "recoil";
 
 interface ModalType {
   modalOpen: boolean;
@@ -19,10 +22,12 @@ const Modal = ({ modalOpen, modalType, handleClose }: ModalType) => {
   const { data: session } = useSession();
   //const post = useRecoilValue(getPostState);
 
+  const post = useRecoilValue(getPostState);
+
   return (
     <MuiModal open={modalOpen} onClose={handleClose}>
       <>
-        {modalType === "dropIn" && (
+        {modalType === "CreatePost" && (
           <div
             className="rounded-xl flex flex-col justify-center bg-white dark:bg-[#1D2226] dark:text-[#e8e8e9] w-full max-w-lg max-h-[calc
           (100vh - 160px)] absolute top-8 left-1/2 -translate-x-1/2 right-0 mx-6"
@@ -56,21 +61,22 @@ const Modal = ({ modalOpen, modalType, handleClose }: ModalType) => {
           </div>
         )}
 
-        {/*modalType === "gifYouUp" && (
-          <div className="rounded-l-lg flex bg-[#1D2226] w-full max-w-6xl -mt-[7vh] mx-6">
-            <Image
-              alt=""
-              onDoubleClick={handleClose}
-              src=""
-              //src={post?.photoUrl}
-              layout="fill"
-              className="object-contain max-h-[80vh] w-full max-w-3xl rounded-l-lg"
-            />
-            <div className="w-full md:w-3/5 bg-white dark:bg-[#1D2226] rounded-r-lg">
-              <Post post={post} modalPost />
+        {modalType === "PostModal" && (
+          <div className="absolute top-20 right-0 left-1/4 -translate-x-1/4 ">
+            <div className="rounded-xl flex-row bg-[#1D2226] w-full h-full md:flex ">
+              <div className="bg-[#1D2226] flex w-full min-w-[200px] md:min-w-[50vh] md:w-full ">
+                <img
+                  src={post?.urlText}
+                  alt=""
+                  className="object-contain min-w-[200px] h-full px-2 md:min-w-[50vh] md:w-full"
+                />
+              </div>
+              <div className="min-w-[200px] h-[500px] w-full flex bg-white dark:bg-[#1D2226] rounded-r-lg overflow-y-scroll">
+                <Post post={post} modalPost key={post?._id} />
+              </div>
             </div>
           </div>
-        )*/}
+        )}
       </>
     </MuiModal>
   );

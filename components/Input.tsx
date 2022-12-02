@@ -6,8 +6,8 @@ import CropOriginalIcon from "@mui/icons-material/CropOriginal";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import InsertInvitationIcon from "@mui/icons-material/InsertInvitation";
 import ArticleIcon from "@mui/icons-material/Article";
-import { modalState, modalTypeState } from "../atoms/modalAtom";
 import { useRecoilState } from "recoil";
+import { modalState, modalTypeState } from "../atoms/modalAtom";
 
 const Input = () => {
   const { data: session } = useSession();
@@ -28,7 +28,7 @@ const Input = () => {
           className="rounded-full border border-gray-400 py-2.5 px-3 opacity-80 hover:opacity-100 font-medium w-full text-left hover:bg-[#ebebeb] dark:hover:bg-[#464a4d]"
           onClick={() => {
             setModalOpen(true);
-            setModalType("dropIn");
+            setModalType("CreatePost");
           }}
         >
           Start a post

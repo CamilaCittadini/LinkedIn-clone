@@ -5,8 +5,13 @@ import classNames from "classnames";
 import { DevTool } from "@hookform/devtools";
 import { EmojiSelector } from "./EmojiSelector";
 import { EmojiClickData } from "emoji-picker-react";
-
-interface Inputs {
+import { useMutation } from "react-query";
+import { fetchPost, PostInfo, uploadPost } from "../services";
+import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
+import { useRecoilState } from "recoil";
+import { modalState } from "../atoms/modalAtom";
+export interface Inputs {
   textArea: string;
   urlText: string;
 }
@@ -21,7 +26,7 @@ const Form = () => {
     setValue,
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const [modalOpen, setModalOpen] = useRecoilState(modalState);
 
   const [openEmojiSelector, setOpenEmojiSelector] = useState<boolean>(false);
 
@@ -52,6 +57,22 @@ const Form = () => {
       textValue.slice(0, selectionStart) + "#" + textValue.slice(selectionEnd);
     setTextValue(newValue);
     setValue("textArea", newValue);
+  };
+
+  const { data: session } = useSession();
+
+  //POST Request
+  const { mutate: createPost } = useMutation("linkedin-post", uploadPost, {
+    onSuccess() {
+      fetchPost();
+      setModalOpen(false);
+    },
+  });
+
+  //the mapToPost function will compile all the information needed to create the post in the post variable
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const post = mapToPost(data, session);
+    createPost(post);
   };
 
   return (
@@ -118,3 +139,13 @@ const Form = () => {
 };
 
 export default Form;
+
+const mapToPost = (form: Inputs, session: Session | null): PostInfo => {
+  return {
+    username: session?.user?.name,
+    email: session?.user?.email,
+    image: session?.user?.image,
+    textArea: form.textArea,
+    urlText: form?.urlText,
+  };
+};
