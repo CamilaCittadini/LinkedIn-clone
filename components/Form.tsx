@@ -1,23 +1,22 @@
-import React, {
-  Dispatch,
-  LegacyRef,
-  SetStateAction,
-  useRef,
-  useState,
-} from "react";
+import React, { useRef, useState } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
 import classNames from "classnames";
 import { DevTool } from "@hookform/devtools";
 import { EmojiSelector } from "./EmojiSelector";
 import { EmojiClickData } from "emoji-picker-react";
-
-interface Inputs {
+import { useMutation, useQuery } from "react-query";
+import { fetchPost, PostInfo, uploadPost } from "../services";
+import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
+import { useRecoilState } from "recoil";
+import { modalState } from "../atoms/modalAtom";
+export interface Inputs {
   textArea: string;
   urlText: string;
 }
 
-const Form = ({}: FormType) => {
+const Form = () => {
   const {
     control,
     handleSubmit,
@@ -27,7 +26,7 @@ const Form = ({}: FormType) => {
     setValue,
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const [modalOpen, setModalOpen] = useRecoilState(modalState);
 
   const [openEmojiSelector, setOpenEmojiSelector] = useState<boolean>(false);
 
@@ -58,6 +57,24 @@ const Form = ({}: FormType) => {
       textValue.slice(0, selectionStart) + "#" + textValue.slice(selectionEnd);
     setTextValue(newValue);
     setValue("textArea", newValue);
+  };
+
+  const { data: session } = useSession();
+
+  const { data, refetch } = useQuery("linkedin-post", fetchPost);
+
+  //POST Request
+  const { mutate: createPost } = useMutation("linkedin-post", uploadPost, {
+    onSuccess() {
+      refetch();
+      setModalOpen(false);
+    },
+  });
+
+  //the mapToPost function will compile all the information needed to create the post in the post variable
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const post = mapToPost(data, session);
+    createPost(post);
   };
 
   return (
@@ -124,3 +141,13 @@ const Form = ({}: FormType) => {
 };
 
 export default Form;
+
+const mapToPost = (form: Inputs, session: Session | null): PostInfo => {
+  return {
+    username: session?.user?.name,
+    email: session?.user?.email,
+    image: session?.user?.image,
+    textArea: form.textArea,
+    urlText: form?.urlText,
+  };
+};

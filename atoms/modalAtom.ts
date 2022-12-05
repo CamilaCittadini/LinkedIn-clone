@@ -7,5 +7,5 @@ export const modalState = atom({
 
 export const modalTypeState = atom({
   key: "modalTypeState",
-  default: "dropIn",
+  default: "CreatePost",
 });
