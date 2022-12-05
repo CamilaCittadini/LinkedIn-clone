@@ -15,13 +15,21 @@ import {
   ThumbUpAltRounded,
 } from "@mui/icons-material";
 import { useSession } from "next-auth/react";
-import { useMutation } from "react-query";
+import {
+  QueryObserverResult,
+  RefetchOptions,
+  RefetchQueryFilters,
+  useMutation,
+} from "react-query";
+import { AxiosResponse } from "axios";
 
 interface PostType {
   post: PostInfo;
   key: string | undefined;
   modalPost?: boolean | undefined;
-  refetch: any;
+  refetch: <TPageData>(
+    options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
+  ) => Promise<QueryObserverResult<AxiosResponse<any, any>, unknown>>;
 }
 
 type TextAreaState = "less" | "more";

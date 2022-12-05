@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { DevTool } from "@hookform/devtools";
 import { EmojiSelector } from "./EmojiSelector";
 import { EmojiClickData } from "emoji-picker-react";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { fetchPost, PostInfo, uploadPost } from "../services";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
@@ -61,10 +61,12 @@ const Form = () => {
 
   const { data: session } = useSession();
 
+  const { data, refetch } = useQuery("linkedin-post", fetchPost);
+
   //POST Request
   const { mutate: createPost } = useMutation("linkedin-post", uploadPost, {
     onSuccess() {
-      fetchPost();
+      refetch();
       setModalOpen(false);
     },
   });
