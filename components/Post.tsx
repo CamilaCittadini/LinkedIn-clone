@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PostInfo } from "../services";
+import { fetchPost, PostInfo, removePost } from "../services";
 import classNames from "classnames";
 import { Avatar, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -15,16 +15,18 @@ import {
   ThumbUpAltRounded,
 } from "@mui/icons-material";
 import { useSession } from "next-auth/react";
+import { useMutation } from "react-query";
 
 interface PostType {
   post: PostInfo;
   key: string | undefined;
   modalPost?: boolean | undefined;
+  refetch: any;
 }
 
 type TextAreaState = "less" | "more";
 
-const Post = ({ post, key, modalPost }: PostType) => {
+const Post = ({ post, key, modalPost, refetch }: PostType) => {
   const { data: session } = useSession();
   const [modalOpen, setModalOpen] = useRecoilState(modalState);
   const [modalType, setModalType] = useRecoilState(modalTypeState);
@@ -43,6 +45,18 @@ const Post = ({ post, key, modalPost }: PostType) => {
     } else {
       setFullText(post?.textArea?.slice(0, 149));
     }
+  };
+
+  //Delete post function
+  const { mutate: deletePost } = useMutation("linkedin-post", removePost, {
+    onSuccess() {
+      refetch();
+    },
+  });
+
+  const handleDelete = (post: PostInfo) => {
+    deletePost(post);
+    setModalOpen(false);
   };
 
   return (
@@ -127,7 +141,7 @@ const Post = ({ post, key, modalPost }: PostType) => {
             <h4>Comment</h4>
           </button>
           {session?.user?.email === post?.email ? (
-            <button className="postButton">
+            <button className="postButton" onClick={() => handleDelete(post)}>
               <DeleteIcon />
               <h4>Delete post</h4>
             </button>

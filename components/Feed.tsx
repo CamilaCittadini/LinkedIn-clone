@@ -13,7 +13,7 @@ const Feed = () => {
       <Input />
       {/*Posts*/}
       {data?.data.map((post: PostInfo) => (
-        <Post key={post._id} post={post} />
+        <Post key={post._id} post={post} refetch={refetch} />
       ))}
     </div>
   );

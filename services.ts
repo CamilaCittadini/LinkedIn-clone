@@ -9,13 +9,23 @@ export interface PostInfo extends Inputs {
 }
 
 export const uploadPost = async (post: PostInfo) => {
-  return await axios({ url: "/api/posts", method: "POST", data: post });
+  return await axios({
+    url: "/api/posts",
+    method: "POST",
+    data: post,
+  });
 };
 
 export const fetchPost = async () => {
   return await axios({
     url: "/api/posts",
     method: "GET",
-    headers: { "Content-type": "application/json" },
+  });
+};
+
+export const removePost = async (post: PostInfo) => {
+  return await axios({
+    url: `/api/posts/${post?._id}`,
+    method: "DELETE",
   });
 };
