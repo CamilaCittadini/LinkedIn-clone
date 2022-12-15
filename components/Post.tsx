@@ -97,7 +97,12 @@ const Post = ({ post, key, modalPost, refetch }: PostType) => {
             <CloseIcon className="dark:text-white/75 h-7 w-7" />
           </IconButton>
         ) : (
-          <IconButton>
+          <IconButton
+            disabled={session?.user?.email != post?.email}
+            className={classNames({
+              hidden: session?.user?.email != post?.email,
+            })}
+          >
             <MoreHorizIcon
               className="dark:text-white/75 h-7 w-7"
               onClick={() => handleUpdate()}
