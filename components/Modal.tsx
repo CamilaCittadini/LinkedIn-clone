@@ -9,7 +9,7 @@ import PublicIcon from "@mui/icons-material/Public";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Form from "./Form";
 import Post from "./Post";
-import { getPostState } from "../atoms/postAtom";
+import { getPostState, getPostToView } from "../atoms/postAtom";
 import { useRecoilValue } from "recoil";
 
 interface ModalType {
@@ -20,20 +20,22 @@ interface ModalType {
 
 const Modal = ({ modalOpen, modalType, handleClose }: ModalType) => {
   const { data: session } = useSession();
-  //const post = useRecoilValue(getPostState);
 
   const post = useRecoilValue(getPostState);
+  const postToView = useRecoilValue(getPostToView);
 
   return (
     <MuiModal open={modalOpen} onClose={handleClose}>
       <>
-        {modalType === "CreatePost" && (
+        {modalType != "PostModal" && (
           <div
             className="rounded-xl flex flex-col justify-center bg-white dark:bg-[#1D2226] dark:text-[#e8e8e9] w-full max-w-lg max-h-[calc
           (100vh - 160px)] absolute top-8 left-1/2 -translate-x-1/2 right-0 mx-6"
           >
             <div className="flex items-center justify-between border-b border-[#ebebeb] text-[#707070] dark:text-[#e8e8e9] dark:border-[#626668] px-4 py-2.5">
-              <h4 className="text-2xl">Create a post</h4>
+              <h4 className="text-2xl">
+                {modalType === "CreatePost" ? "Create a post" : "Update post"}
+              </h4>
               <button onClick={handleClose}>
                 <CloseIcon className="h-8 w-8 rounded-full dark:text-[#ebebeb] hover:bg-[#ebebeb] dark:hover:bg-[#464a4d]" />
               </button>
@@ -56,7 +58,7 @@ const Modal = ({ modalOpen, modalType, handleClose }: ModalType) => {
                   </div>
                 </div>
               </div>
-              <Form />
+              <Form post={postToView} />
             </div>
           </div>
         )}

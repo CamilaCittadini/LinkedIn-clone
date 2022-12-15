@@ -5,7 +5,7 @@ import { Avatar, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ShareIcon from "@mui/icons-material/Share";
 import { modalState, modalTypeState } from "../atoms/modalAtom";
-import { getPostState } from "../atoms/postAtom";
+import { getPostState, getPostToView } from "../atoms/postAtom";
 import { useRecoilState } from "recoil";
 import CloseIcon from "@mui/icons-material/Close";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -39,6 +39,7 @@ const Post = ({ post, key, modalPost, refetch }: PostType) => {
   const [modalOpen, setModalOpen] = useRecoilState(modalState);
   const [modalType, setModalType] = useRecoilState(modalTypeState);
   const [postState, setPostState] = useRecoilState(getPostState);
+  const [postToUpdate, setPostToUpdate] = useRecoilState(getPostToView);
   const [liked, setLiked] = useState<boolean>(false);
 
   const [fullText, setFullText] = useState<string>(
@@ -67,6 +68,12 @@ const Post = ({ post, key, modalPost, refetch }: PostType) => {
     setModalOpen(false);
   };
 
+  const handleUpdate = () => {
+    setModalOpen(true);
+    setModalType("UpdatePost");
+    setPostToUpdate(post);
+  };
+
   return (
     <div
       key={post?._id}
@@ -91,7 +98,10 @@ const Post = ({ post, key, modalPost, refetch }: PostType) => {
           </IconButton>
         ) : (
           <IconButton>
-            <MoreHorizIcon className="dark:text-white/75 h-7 w-7" />
+            <MoreHorizIcon
+              className="dark:text-white/75 h-7 w-7"
+              onClick={() => handleUpdate()}
+            />
           </IconButton>
         )}
       </div>
