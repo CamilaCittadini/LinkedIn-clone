@@ -9,10 +9,12 @@ import { Feed } from "../components/Feed";
 import { Modal } from "../components/Modal";
 import { modalState, modalTypeState } from "../atoms/modalAtom";
 import { useRecoilState } from "recoil";
+import { getPostToView } from "../atoms/postAtom";
 
 export default function Home() {
   const [modalOpen, setModalOpen] = useRecoilState(modalState);
   const [modalType, setModalType] = useRecoilState(modalTypeState);
+  const [postToUpdate, setPostToUpdate] = useRecoilState(getPostToView);
 
   const router = useRouter();
 
@@ -25,6 +27,11 @@ export default function Home() {
       router.push("/home");
     },
   });
+
+  const handleClose = () => {
+    setModalOpen(false);
+    setPostToUpdate(undefined);
+  };
 
   return (
     <div className="bg-[#F3F2EF] dark:bg-black dark:text-white h-screen overflow-y-scroll md:space-y-6 ">
@@ -44,7 +51,7 @@ export default function Home() {
         </div>
         {modalOpen && (
           <Modal
-            handleClose={() => setModalOpen(false)}
+            handleClose={handleClose}
             modalType={modalType}
             modalOpen={modalOpen}
           />

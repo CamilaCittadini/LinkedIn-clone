@@ -5,3 +5,8 @@ export const getPostState = atom({
   key: "getPostState",
   default: {} as PostInfo,
 });
+
+export const getPostToView = atom({
+  key: "getPostToView",
+  default: undefined,
+});
