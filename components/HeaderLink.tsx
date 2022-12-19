@@ -12,14 +12,7 @@ interface HeaderLinkProps {
   hidden?: boolean;
 }
 
-const HeaderLink = ({
-  Icon,
-  text,
-  avatar,
-  feed,
-  active,
-  hidden,
-}: HeaderLinkProps) => {
+const HeaderLink = ({ Icon, text, feed, active, hidden }: HeaderLinkProps) => {
   const { data: session } = useSession();
 
   return (

@@ -1,9 +1,6 @@
 import CloseIcon from "@mui/icons-material/Close";
 import { useSession } from "next-auth/react";
 import { Avatar } from "@mui/material";
-//import {Form} from "./Form";
-//import { getPostState } from "../atoms/postAtom";
-//import Post from "./Post";
 import MuiModal from "@mui/material/Modal";
 import PublicIcon from "@mui/icons-material/Public";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -11,6 +8,7 @@ import Form from "./Form";
 import Post from "./Post";
 import { getPostState, getPostToView } from "../atoms/postAtom";
 import { useRecoilValue } from "recoil";
+import Image from "next/image";
 
 interface ModalType {
   modalOpen: boolean;
@@ -67,8 +65,10 @@ const Modal = ({ modalOpen, modalType, handleClose }: ModalType) => {
           <div className="absolute top-20 right-0 left-1/4 -translate-x-1/4 ">
             <div className="rounded-xl flex-row bg-[#1D2226] w-full h-full md:flex ">
               <div className="bg-[#1D2226] flex w-full min-w-[200px] md:min-w-[50vh] md:w-full ">
-                <img
+                <Image
                   src={post?.urlText}
+                  width={500}
+                  height={500}
                   alt=""
                   className="object-contain min-w-[200px] h-full px-2 md:min-w-[50vh] md:w-full"
                 />
