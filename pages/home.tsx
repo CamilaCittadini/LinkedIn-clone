@@ -64,30 +64,33 @@ const home = ({ providers }: { providers: Provider }) => {
           <h1 className="text-3xl md:text-5xl text-amber-800 !leading-snug pl-4 xl:pl-0">
             Welcome to your professional community
           </h1>
-          <div className="space-y-4">
-            <div className="intent">
-              <h2 className="text-xl">Search for a job</h2>
-              <ArrowForwardIosRoundedIcon className="text-gray-700" />
+          <div className="flex flex-row justify-between w-full">
+            <div className="space-y-4 grow">
+              <div className="intent ">
+                <h2 className="text-xl">Search for a job</h2>
+                <ArrowForwardIosRoundedIcon className="text-gray-700" />
+              </div>
+              <div className="intent">
+                <h2 className="text-xl">Find a person you know</h2>
+                <ArrowForwardIosRoundedIcon className="text-gray-700" />
+              </div>
+              <div className="intent">
+                <h2 className="text-xl">Learn a new skill</h2>
+                <ArrowForwardIosRoundedIcon className="text-gray-700" />
+              </div>
             </div>
-            <div className="intent">
-              <h2 className="text-xl">Find a person you know</h2>
-              <ArrowForwardIosRoundedIcon className="text-gray-700" />
-            </div>
-            <div className="intent">
-              <h2 className="text-xl">Learn a new skill</h2>
-              <ArrowForwardIosRoundedIcon className="text-gray-700" />
+
+            <div className="xl:absolute w-80 h-80 xl:w-[650px] xl:h-[650px] xl:top-48 xl:right-5 top-14 right-5">
+              <Image
+                src="https://media.istockphoto.com/id/1219473617/es/vector/joven-personaje-masculino-escribiendo-c%C3%B3digo-en-una-computadora-de-escritorio-trabajando.jpg?s=612x612&w=0&k=20&c=LCYpGgRg-Y-U5DMSr6vIGEqlcINnxwsZ5XjM2yjYBos="
+                alt="background-image"
+                width={500}
+                height={500}
+                priority
+                className="backgroundImage"
+              />
             </div>
           </div>
-        </div>
-        <div className="relative xl:absolute w-80 h-80 xl:w-[650px] xl:h-[650px] xl:top-48 xl:right-5 top-14 right-5">
-          <Image
-            src="https://media.istockphoto.com/id/1219473617/es/vector/joven-personaje-masculino-escribiendo-c%C3%B3digo-en-una-computadora-de-escritorio-trabajando.jpg?s=612x612&w=0&k=20&c=LCYpGgRg-Y-U5DMSr6vIGEqlcINnxwsZ5XjM2yjYBos="
-            alt="background-image"
-            width={500}
-            height={500}
-            priority
-            className="backgroundImage"
-          />
         </div>
       </main>
     </div>

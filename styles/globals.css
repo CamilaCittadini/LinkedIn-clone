@@ -15,7 +15,7 @@
     @apply flex items-center justify-between hover:shadow-xl p-4 cursor-pointer rounded-lg text-black bg-white max-w-md xl:mx-0;
   }
   .backgroundImage {
-    @apply flex object-cover rounded-full;
+    @apply rounded-full;
   }
   .sidebarButtonContainer {
     @apply border-t border-[#ebebeb] dark:border-t dark:border-[#383d40] py-3 cursor-pointer;
