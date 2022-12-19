@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
 import classNames from "classnames";
-import { DevTool } from "@hookform/devtools";
 import { EmojiSelector } from "./EmojiSelector";
 import { EmojiClickData } from "emoji-picker-react";
 import { useMutation, useQuery } from "react-query";
@@ -152,7 +151,6 @@ const Form = ({ post }: FormProps) => {
       >
         {modalType === "CreatePost" ? "Post" : "Update"}
       </button>
-      <DevTool control={control}></DevTool>
       <div className="relative">
         {openEmojiSelector && <EmojiSelector onEmojiClick={onEmojiClick} />}
       </div>
