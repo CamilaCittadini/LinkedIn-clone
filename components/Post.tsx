@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { fetchPost, PostInfo, removePost } from "../services";
+import { PostInfo, removePost } from "../services";
 import classNames from "classnames";
 import { Avatar, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -22,12 +22,13 @@ import {
   useMutation,
 } from "react-query";
 import { AxiosResponse } from "axios";
+import Image from "next/image";
 
 interface PostType {
   post: PostInfo;
   key: string | undefined;
   modalPost?: boolean | undefined;
-  refetch: <TPageData>(
+  refetch?: <TPageData>(
     options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
   ) => Promise<QueryObserverResult<AxiosResponse<any, any>, unknown>>;
 }
@@ -59,7 +60,7 @@ const Post = ({ post, key, modalPost, refetch }: PostType) => {
   //Delete post function
   const { mutate: deletePost } = useMutation("linkedin-post", removePost, {
     onSuccess() {
-      refetch();
+      refetch?.();
     },
   });
 
@@ -133,9 +134,11 @@ const Post = ({ post, key, modalPost, refetch }: PostType) => {
       )}
 
       {post?.urlText && !modalPost && (
-        <img
+        <Image
           src={post?.urlText}
           alt=""
+          width={500}
+          height={500}
           className="w-full cursor-pointer"
           onClick={() => {
             setModalOpen(true);

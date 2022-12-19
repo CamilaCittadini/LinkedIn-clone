@@ -2,9 +2,9 @@ import axios from "axios";
 import type { Inputs } from "./components/Form";
 
 export interface PostInfo extends Inputs {
-  email?: string;
-  username?: string;
-  image?: string;
+  email?: string | null;
+  username?: string | null;
+  image?: string | null;
   _id?: string;
 }
 
