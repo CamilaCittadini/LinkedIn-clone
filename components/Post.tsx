@@ -35,7 +35,7 @@ interface PostType {
 
 type TextAreaState = "less" | "more";
 
-const Post = ({ post, key, modalPost, refetch }: PostType) => {
+const Post = ({ post, modalPost, refetch }: PostType) => {
   const { data: session } = useSession();
   const [modalOpen, setModalOpen] = useRecoilState(modalState);
   const [modalType, setModalType] = useRecoilState(modalTypeState);

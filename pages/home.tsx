@@ -46,7 +46,7 @@ const home = ({ providers }: { providers: Provider }) => {
           <div>
             {Object.values(providers).map((provider) => (
               <div key={provider.name}>
-                <div className="pl-4">
+                <div className="pl-4 w-28">
                   <button
                     className="text-blue-700 font-semibold rounded-full border border-blue-700 px-5 py-1.5 transition-all hover:border-2"
                     onClick={() => signIn(provider.id, { callbackUrl: "/" })}

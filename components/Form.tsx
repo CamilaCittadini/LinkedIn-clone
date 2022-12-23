@@ -22,8 +22,9 @@ interface FormProps {
 const Form = ({ post }: FormProps) => {
   const initialFormValues = post ? post : emptyForm;
 
-  const { control, handleSubmit, watch, register, formState, setValue } =
-    useForm<Inputs>({ defaultValues: initialFormValues });
+  const { control, handleSubmit, watch, register, setValue } = useForm<Inputs>({
+    defaultValues: initialFormValues,
+  });
 
   const [modalOpen, setModalOpen] = useRecoilState(modalState);
   const [modalType, setModalType] = useRecoilState(modalTypeState);
