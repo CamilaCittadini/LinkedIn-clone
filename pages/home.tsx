@@ -44,7 +44,7 @@ const home = ({ providers }: { providers: Provider }) => {
             <HeaderLink Icon={BusinessCenterIcon} text="Jobs" />
           </div>
           <div>
-            {Object.values(providers).map((provider) => (
+            {Object?.values(providers)?.map((provider) => (
               <div key={provider.name}>
                 <div className="pl-4 w-28">
                   <button
