@@ -26,7 +26,7 @@ const spring = {
 const Header = () => {
   //dark mode implemented with next-themes
   const [mounted, setMounted] = useState<boolean>(false);
-  const { setTheme, resolvedTheme, theme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
 
   //after mounting (which will occur on the first render), we have access to the theme
   //the logo changes based on the selected theme after mounting

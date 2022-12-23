@@ -1,10 +1,8 @@
 import Head from "next/head";
-import Image from "next/image";
 import { Header } from "../components/Header";
 import { Sidebar } from "../components/Sidebar";
 import type { GetServerSideProps } from "next";
-import { getSession, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
 import { Feed } from "../components/Feed";
 import { Modal } from "../components/Modal";
 import { modalState, modalTypeState } from "../atoms/modalAtom";
@@ -16,25 +14,13 @@ export default function Home() {
   const [modalType, setModalType] = useRecoilState(modalTypeState);
   const [postToUpdate, setPostToUpdate] = useRecoilState(getPostToView);
 
-  const router = useRouter();
-
-  {
-    /*checks if user is authenticated on the client side (status) and if not authenticated, pushes the user to home page */
-  }
-  const { status } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push("/home");
-    },
-  });
-
   const handleClose = () => {
     setModalOpen(false);
     setPostToUpdate(undefined);
   };
 
   return (
-    <div className="bg-[#F3F2EF] dark:bg-black dark:text-white h-screen overflow-y-scroll md:space-y-6 ">
+    <div className="bg-light-color dark:bg-black dark:text-white h-screen overflow-y-scroll md:space-y-6 ">
       <Head>
         <title>Feed | LinkedIn</title>
         <meta name="description" content="LinkedIn" />
